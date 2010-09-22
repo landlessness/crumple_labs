@@ -1,0 +1,12 @@
+- title "Music Notation Thought"
+
+%p
+  %strong Body:
+  = @music_notation_thought.body
+
+%p
+  = link_to "Edit", edit_music_notation_thought_path(@music_notation_thought)
+  |
+  = link_to "Destroy", @music_notation_thought, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", music_notation_thoughts_path

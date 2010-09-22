@@ -1,0 +1,13 @@
+- title "Music Notation Thoughts"
+
+%table
+  %tr
+    %th Body
+  - for music_notation_thought in @music_notation_thoughts
+    %tr
+      %td= music_notation_thought.body
+      %td= link_to 'Show', music_notation_thought
+      %td= link_to 'Edit', edit_music_notation_thought_path(music_notation_thought)
+      %td= link_to 'Destroy', music_notation_thought, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Music Notation Thought", new_music_notation_thought_path
