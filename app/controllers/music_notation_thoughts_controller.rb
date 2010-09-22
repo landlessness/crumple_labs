@@ -1,6 +1,11 @@
 class MusicNotationThoughtsController < ApplicationController
   def index
     @music_notation_thoughts = MusicNotationThought.all
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @music_notation_thoughts }
+      format.json  { render :json => @music_notation_thoughts }
+    end
   end
   
   def show
