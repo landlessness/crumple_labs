@@ -10,6 +10,11 @@ class MusicNotationThoughtsController < ApplicationController
   
   def show
     @music_notation_thought = MusicNotationThought.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @music_notation_thought }
+      format.json  { render :json => @music_notation_thought }
+    end
   end
   
   def new
