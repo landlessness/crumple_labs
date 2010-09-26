@@ -1,4 +1,6 @@
 class MusicNotationThoughtsController < ApplicationController
+  layout nil
+  
   def index
     @music_notation_thoughts = MusicNotationThought.all
     respond_to do |format|

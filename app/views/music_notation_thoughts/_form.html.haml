@@ -1,8 +1,2 @@
 - form_for @music_notation_thought do |f|
-  = f.error_messages
-  %p
-    = f.label :body
-    %br
-    = f.text_area :body
-  %p
-    = f.submit
+  = f.text_area :body, :style => "width:100%"
