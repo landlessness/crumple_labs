@@ -6,6 +6,7 @@ class MusicNotationThoughtsController < ApplicationController
     respond_to do |format|
       format.html
       format.json  { render :json => @music_notation_thoughts }
+      format.xml  { render :xml => @music_notation_thoughts }
     end
   end
   
@@ -14,6 +15,7 @@ class MusicNotationThoughtsController < ApplicationController
     respond_to do |format|
       format.html
       format.json  { render :json => @music_notation_thought }
+      format.xml  { render :xml => @music_notation_thought }
     end
   end
   
@@ -25,9 +27,18 @@ class MusicNotationThoughtsController < ApplicationController
     @music_notation_thought = MusicNotationThought.new(params[:music_notation_thought])
     if @music_notation_thought.save
       flash[:notice] = "Successfully created music notation thought."
-      redirect_to @music_notation_thought
+      respond_to do |format|
+        format.html { redirect_to @music_notation_thought }
+        format.xml  { render :xml => @music_notation_thought }
+        format.json  { render :json => @music_notation_thought }
+      end
     else
-      render :action => 'new'
+      respond_to do |format|
+        format.html { render :action => 'new' }
+        format.all  do
+          render :text => 'Could not save music notation thought.', :status => :internal_server_error 
+        end
+      end
     end
   end
   
@@ -39,9 +50,18 @@ class MusicNotationThoughtsController < ApplicationController
     @music_notation_thought = MusicNotationThought.find(params[:id])
     if @music_notation_thought.update_attributes(params[:music_notation_thought])
       flash[:notice] = "Successfully updated music notation thought."
-      redirect_to @music_notation_thought
+      respond_to do |format|
+        format.html { redirect_to @music_notation_thought }
+        format.xml  { render :xml => @music_notation_thought }
+        format.json  { render :json => @music_notation_thought }
+      end
     else
-      render :action => 'edit'
+      respond_to do |format|
+        format.html { render :action => 'edit'}
+        format.all  do
+          render :text => 'Could not save music notation thought.', :status => :internal_server_error 
+        end
+      end
     end
   end
   
@@ -49,6 +69,12 @@ class MusicNotationThoughtsController < ApplicationController
     @music_notation_thought = MusicNotationThought.find(params[:id])
     @music_notation_thought.destroy
     flash[:notice] = "Successfully destroyed music notation thought."
-    redirect_to music_notation_thoughts_url
+    
+    respond_to do |format|
+      format.html { redirect_to music_notation_thoughts_url }
+      format.all  do
+        render :text => 'Destroyed music notation thought.', :status => :success 
+      end
+    end
   end
 end
