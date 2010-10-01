@@ -1,5 +1,5 @@
 class MusicNotationThoughtsController < ApplicationController
-  layout nil
+  before_filter :check_platform
   
   def index
     @music_notation_thoughts = MusicNotationThought.all
@@ -13,14 +13,21 @@ class MusicNotationThoughtsController < ApplicationController
   def show
     @music_notation_thought = MusicNotationThought.find(params[:id])
     respond_to do |format|
-      format.html
-      format.json  { render :json => @music_notation_thought }
+      if @platform == 'crumple'
+        format.html {render :layout => false}
+      else
+        format.html
+      end
+      format.json  { render :json => music_notation_to_json(@music_notation_thought) }
       format.xml  { render :xml => @music_notation_thought }
     end
   end
   
   def new
     @music_notation_thought = MusicNotationThought.new
+    if @platform == 'crumple'
+      render :layout => false
+    end
   end
   
   def create
@@ -30,7 +37,7 @@ class MusicNotationThoughtsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to @music_notation_thought }
         format.xml  { render :xml => @music_notation_thought }
-        format.json  { render :json => @music_notation_thought }
+        format.json  { render :json => music_notation_to_json(@music_notation_thought) }
       end
     else
       respond_to do |format|
@@ -53,7 +60,7 @@ class MusicNotationThoughtsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to @music_notation_thought }
         format.xml  { render :xml => @music_notation_thought }
-        format.json  { render :json => @music_notation_thought }
+        format.json  { render :json => music_notation_to_json(@music_notation_thought) }
       end
     else
       respond_to do |format|
@@ -69,12 +76,16 @@ class MusicNotationThoughtsController < ApplicationController
     @music_notation_thought = MusicNotationThought.find(params[:id])
     @music_notation_thought.destroy
     flash[:notice] = "Successfully destroyed music notation thought."
-    
     respond_to do |format|
       format.html { redirect_to music_notation_thoughts_url }
-      format.all  do
-        render :text => 'Destroyed music notation thought.', :status => :success 
-      end
+      format.json  { render :json => nil }
     end
+  end
+  protected
+  def check_platform
+    @platform = params[:platform] || ''
+  end
+  def music_notation_to_json(t)
+    t.to_json(:methods => :search_text)
   end
 end

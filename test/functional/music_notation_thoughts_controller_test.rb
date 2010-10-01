@@ -51,4 +51,22 @@ class MusicNotationThoughtsControllerTest < ActionController::TestCase
     assert_redirected_to music_notation_thoughts_url
     assert !MusicNotationThought.exists?(music_notation_thought.id)
   end
+  def test_show_layout_for_platform_should_by_nil
+    get :show, :id => MusicNotationThought.first, :platform => 'crumple'
+    assert_template 'show'
+    assert_no_tag :tag => 'link', :attributes => {:rel => 'stylesheet'}
+  end
+  def test_show_layout_without_platform_should_have_style
+    get :show, :id => MusicNotationThought.first
+    assert_template 'show'
+    assert_tag :tag => 'link', :attributes => {:rel => 'stylesheet'}
+  end
+  def test_new_layout_for_platform_should_by_nil
+    get :new, :id => MusicNotationThought.first, :platform => 'crumple'
+    assert_no_tag :tag => 'link', :attributes => {:rel => 'stylesheet'}
+  end
+  def test_new_layout_without_platform_should_have_style
+    get :new, :id => MusicNotationThought.first
+    assert_tag :tag => 'link', :attributes => {:rel => 'stylesheet'}
+  end
 end
