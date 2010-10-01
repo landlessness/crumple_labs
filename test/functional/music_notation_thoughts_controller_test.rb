@@ -69,4 +69,9 @@ class MusicNotationThoughtsControllerTest < ActionController::TestCase
     get :new, :id => MusicNotationThought.first
     assert_tag :tag => 'link', :attributes => {:rel => 'stylesheet'}
   end
+  def test_abc_rendered
+    get :show, :id => MusicNotationThought.first, :platform => 'crumple'
+    # assert_tag :tag => 'div', :attributes => {:class => 'abcrendered'}
+    # TODO: not sure what to test
+  end
 end

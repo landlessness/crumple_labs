@@ -1,12 +1,11 @@
+= javascript_include_tag 'http://drawthedots.com/abcplugin/abcplugin-min.js'
+:javascript
+  abc_plugin["show_midi"] = false;
+  abc_plugin["hide_abc"] = true;
 - if @platform.nil?
   - title "Music Notation Thought"
 
-%p
-  %strong Body:
-%p<= @music_notation_thought.body
-%p
-  %strong Search Text:
-%p<= @music_notation_thought.search_text
+.white-bg= @music_notation_thought.body
 
 - if @platform.nil?
   %p
