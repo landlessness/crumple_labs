@@ -1,12 +1,13 @@
-= javascript_include_tag 'http://drawthedots.com/abcplugin/abcplugin-min.js'
+= javascript_include_tag 'jquery.min.js', 'music_notation/abc.plugin.min', 'music_notation/show'
 :javascript
   abc_plugin["show_midi"] = false;
   abc_plugin["hide_abc"] = true;
+
 - if @platform.nil?
   - title "Music Notation Thought"
 
-.white-bg= @music_notation_thought.body
-
+.white-bg
+  = 'X: ' + @music_notation_thought.to_param + "\n" + @music_notation_thought.body
 - if @platform.nil?
   %p
     = link_to "Edit", edit_music_notation_thought_path(@music_notation_thought)

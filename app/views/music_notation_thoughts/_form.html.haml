@@ -1,5 +1,21 @@
+= javascript_include_tag 'music_notation/abc.editor.min', 'music_notation/_form'
+= stylesheet_link_tag 'music_notation/application.css'
+
 - if @platform == 'crumple'
-  = text_area :music_notation_thought, :body, :style => "width:100%"
+  = stylesheet_link_tag 'http://crumpleapp.com/stylesheets/application.css'
+- else
+  = javascript_include_tag 'jquery.min.js'
+:javascript
+  window.onload = function() { 
+    abc_editor = new ABCEditor('music_notation_thought_body', { canvas_id: 'music_notation_canvas', warnings_id: 'music_notation_warnings'}); 
+  }    
+- if @platform == 'crumple'
+  .align-left.half
+    = text_area :music_notation_thought, :body, :style => 'width:100%'
+    #music_notation_warnings
+  .align-right.half
+    #music_notation_canvas.white-bg
+  .clear
 - else
   = form_for @music_notation_thought do |f|
-    = f.text_area :body, :style => "width:100%"
+    = f.text_area :body, :style => 'width:100%'

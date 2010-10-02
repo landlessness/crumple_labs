@@ -25,6 +25,8 @@ class MusicNotationThoughtsController < ApplicationController
   
   def new
     @music_notation_thought = MusicNotationThought.new
+    @music_notation_thought.body = @music_notation_thought.example_body
+
     if @platform == 'crumple'
       render :layout => false
     end
