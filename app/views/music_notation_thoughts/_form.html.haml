@@ -10,12 +10,9 @@
     abc_editor = new ABCEditor('music_notation_thought_body', { canvas_id: 'music_notation_canvas', warnings_id: 'music_notation_warnings'}); 
   }    
 - if @platform == 'crumple'
-  .align-left.half
-    = text_area :music_notation_thought, :body, :style => 'width:100%'
-    #music_notation_warnings
-  .align-right.half
-    #music_notation_canvas.white-bg
-  .clear
+  = text_area :music_notation_thought, :body, :style => 'width:100%', :rows => "10"
+  #music_notation_warnings.system-content.gray
+  #music_notation_canvas.lil-space-top
 - else
   = form_for @music_notation_thought do |f|
     = f.text_area :body, :style => 'width:100%'
