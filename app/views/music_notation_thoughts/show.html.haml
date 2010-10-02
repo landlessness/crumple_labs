@@ -1,4 +1,8 @@
 = javascript_include_tag 'jquery.min.js', 'music_notation/abc.plugin.min', 'music_notation/show'
+= stylesheet_link_tag 'music_notation/application.css'
+- if @platform == 'crumple'
+  = stylesheet_link_tag 'http://crumpleapp.com/stylesheets/application.css'
+
 :javascript
   abc_plugin["show_midi"] = false;
   abc_plugin["hide_abc"] = true;
@@ -6,8 +10,8 @@
 - if @platform.nil?
   - title "Music Notation Thought"
 
-.white-bg
-  = 'X: ' + @music_notation_thought.to_param + "\n" + @music_notation_thought.body
+
+= 'X: ' + @music_notation_thought.to_param + "\n" + @music_notation_thought.body
 - if @platform.nil?
   %p
     = link_to "Edit", edit_music_notation_thought_path(@music_notation_thought)
