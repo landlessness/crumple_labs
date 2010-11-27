@@ -10,14 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100929225358) do
-
-  create_table "markdowns", :force => true do |t|
-    t.string   "body"
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20100922115115) do
 
   create_table "music_notation_thoughts", :force => true do |t|
     t.text     "body"
